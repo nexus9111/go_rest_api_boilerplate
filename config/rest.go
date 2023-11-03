@@ -1,15 +1,13 @@
 package config
 
 import (
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/nexus9111/go-rest-api-boilerplate/users"
 	"net/http"
+	"os"
 	"time"
-)
-
-const (
-	PORT string = ":8080"
 )
 
 type Server struct {
@@ -27,7 +25,7 @@ func (s *Server) Init() {
 
 func (s *Server) Run() error {
 	server := &http.Server{
-		Addr:           PORT,
+		Addr:           fmt.Sprintf(":%s", os.Getenv("APP_PORT")),
 		Handler:        s.server,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
