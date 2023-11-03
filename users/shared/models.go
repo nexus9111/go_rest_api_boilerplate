@@ -16,7 +16,7 @@ func (u *User) Validate() bool {
 	return u.Email != "" && u.Username != "" && u.Password != ""
 }
 
-func (u *User) Get(c *gin.Context) {
+func (u *User) FindFromRequestToken(c *gin.Context) {
 	authorization := c.Request.Header["Authorization"]
 	if len(authorization) == 0 {
 		utils.ErrorResponse(c, 401, utils.ErrorUnauthorized)

@@ -8,7 +8,7 @@ import (
 func IsAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var user shared.User
-		user.Get(c)
+		user.FindFromRequestToken(c)
 		c.Set("user", user)
 		c.Next()
 	}
