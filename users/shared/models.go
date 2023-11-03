@@ -1,8 +1,8 @@
 package shared
 
 import (
-	"GO_API_BOILERPLATE/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/nexus9111/go-rest-api-boilerplate/utils"
 )
 
 type User struct {

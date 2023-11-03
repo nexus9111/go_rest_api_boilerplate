@@ -1,8 +1,8 @@
 package users
 
 import (
-	"GO_API_BOILERPLATE/users/shared"
 	"github.com/gin-gonic/gin"
+	"github.com/nexus9111/go-rest-api-boilerplate/users/shared"
 )
 
 func IsAuth() gin.HandlerFunc {

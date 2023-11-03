@@ -1,10 +1,10 @@
 package users
 
 import (
-	"GO_API_BOILERPLATE/users/shared"
-	"GO_API_BOILERPLATE/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/nexus9111/go-rest-api-boilerplate/users/shared"
+	"github.com/nexus9111/go-rest-api-boilerplate/utils"
 )
 
 func getUserFromContext(c *gin.Context) (shared.User, error) {

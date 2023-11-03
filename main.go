@@ -1,8 +1,8 @@
 package main
 
 import (
-	"GO_API_BOILERPLATE/config"
 	"fmt"
+	"github.com/nexus9111/go-rest-api-boilerplate/config"
 )
 
 func main() {

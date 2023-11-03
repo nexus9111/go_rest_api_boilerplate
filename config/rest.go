@@ -1,9 +1,9 @@
 package config
 
 import (
-	"GO_API_BOILERPLATE/users"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/nexus9111/go-rest-api-boilerplate/users"
 	"net/http"
 	"time"
 )

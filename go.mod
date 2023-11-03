@@ -1,4 +1,4 @@
-module GO_API_BOILERPLATE
+module github.com/nexus9111/go-rest-api-boilerplate
 
 go 1.21
 
