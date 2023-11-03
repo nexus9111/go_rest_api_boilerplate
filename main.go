@@ -7,10 +7,16 @@ import (
 )
 
 func main() {
-	godotenv.Load(".env")
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Println(err)
+		panic("Error loading .env file")
+	}
+
 	var server config.Server
 	server.Init()
-	err := server.Run()
+
+	err = server.Run()
 	if err != nil {
 		fmt.Println(err)
 		panic("Server failed to start")
