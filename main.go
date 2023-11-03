@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/nexus9111/go-rest-api-boilerplate/config"
+	"github.com/nexus9111/go-rest-api-boilerplate/config/database"
 )
 
 func main() {
@@ -11,6 +12,12 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 		panic("Error loading .env file")
+	}
+
+	err = database.InitDatabase()
+	if err != nil {
+		fmt.Println(err)
+		panic("Database failed to connect")
 	}
 
 	var server config.Server

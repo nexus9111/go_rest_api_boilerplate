@@ -9,9 +9,4 @@ COPY . ./
 
 RUN go build -o /go-rest-api
 
-ARG APP_PORT
-ENV APP_PORT=$APP_PORT
-
-EXPOSE $APP_PORT
-
 CMD [ "/go-rest-api" ]

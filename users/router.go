@@ -1,10 +1,12 @@
 package users
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter(r *gin.Engine) {
+	fmt.Println("Initializing users router...")
 	v1 := r.Group("/v1/users")
 	{
 		v1.POST("/", create)

@@ -3,6 +3,7 @@ package users
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/nexus9111/go-rest-api-boilerplate/config/database"
 	"github.com/nexus9111/go-rest-api-boilerplate/users/shared"
 	"github.com/nexus9111/go-rest-api-boilerplate/utils"
 )
@@ -29,33 +30,47 @@ func create(c *gin.Context) {
 		return
 	}
 
-	// TODO: Create user in database
+	result := database.Context.DB.Create(&requestUser)
+	if result.Error != nil {
+		utils.ErrorResponse(c, 400, utils.AlreadyUsedEmailorPassword)
+		return
+	}
 
 	utils.SuccessResponse(c, 201, map[string]any{
+		"id":       requestUser.ID,
 		"email":    requestUser.Email,
 		"username": requestUser.Username,
 	})
 }
 
 func login(c *gin.Context) {
-	type credentials struct {
-		email    string
-		password string
+	type Credentials struct {
+		Email    string
+		Password string
 	}
 
-	var requestCredentials credentials
+	var requestCredentials Credentials
 	err := c.BindJSON(&requestCredentials)
-	if err != nil || requestCredentials.email == "" || requestCredentials.password == "" {
+
+	if err != nil || requestCredentials.Email == "" || requestCredentials.Password == "" {
 		utils.ErrorResponse(c, 400, fmt.Sprintf(utils.ErrorBadBody, "[email, password]"))
 		return
 	}
 
-	// TODO: Check credentials in database
+	var user shared.User
+	findUser := database.Context.DB.First(&user, "email = ? AND password = ?", requestCredentials.Email, requestCredentials.Password)
+	if findUser.Error != nil {
+		utils.ErrorResponse(c, 401, utils.ErrorUnauthorized)
+		return
+	}
+
 	// TODO: Generate token
 	token := "token"
 
 	utils.SuccessResponse(c, 201, map[string]any{
-		"token": token,
+		"token":    token,
+		"username": user.Username,
+		"ID":       user.ID,
 	})
 }
 
@@ -67,7 +82,7 @@ func profile(c *gin.Context) {
 	}
 
 	utils.SuccessResponse(c, 200, map[string]any{
-		"id":       user.Id,
+		"id":       user.ID,
 		"email":    user.Email,
 		"username": user.Username,
 		"token":    c.Request.Header["Authorization"],
@@ -84,7 +99,7 @@ func update(c *gin.Context) {
 	// TODO: Update user in database
 
 	utils.SuccessResponse(c, 200, map[string]any{
-		"id":       user.Id,
+		"id":       user.ID,
 		"email":    user.Email,
 		"username": user.Username,
 		"token":    c.Request.Header["Authorization"],

@@ -3,12 +3,13 @@ package shared
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nexus9111/go-rest-api-boilerplate/utils"
+	"gorm.io/gorm"
 )
 
 type User struct {
-	Id       string
-	Email    string
-	Username string
+	gorm.Model
+	Email    string `gorm:"index;unique"`
+	Username string `gorm:"index;unique"`
 	Password string
 }
 
@@ -26,7 +27,6 @@ func (u *User) FindFromRequestToken(c *gin.Context) {
 	// TODO: check token
 	// TODO: get user from database
 
-	u.Id = "1"
 	u.Email = "test@test.com"
 	u.Username = "test"
 	u.Password = "test"

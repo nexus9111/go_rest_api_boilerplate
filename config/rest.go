@@ -15,6 +15,7 @@ type Server struct {
 }
 
 func (s *Server) Init() {
+	gin.SetMode(os.Getenv("GIN_MODE"))
 	r := gin.Default()
 	r.Use(cors.Default())
 
@@ -24,6 +25,7 @@ func (s *Server) Init() {
 }
 
 func (s *Server) Run() error {
+	fmt.Println(fmt.Sprintf("Server running on port %s", os.Getenv("APP_PORT")))
 	server := &http.Server{
 		Addr:           fmt.Sprintf(":%s", os.Getenv("APP_PORT")),
 		Handler:        s.server,
